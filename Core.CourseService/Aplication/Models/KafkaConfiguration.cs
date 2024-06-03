@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace 02-Core.CourseService.Aplication.UseCases
+namespace Core.CourseService.Aplication.Models
 {
-    internal class Enrollment
-{
-}
+    public class KafkaConfiguration
+    {
+    }
 }

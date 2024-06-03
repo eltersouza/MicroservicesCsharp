@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.CourseService.Domain
+namespace Core.CourseService.Aplication.UseCases
 {
-    internal class Course
+    public class EnrollStudentToCourse
     {
     }
 }

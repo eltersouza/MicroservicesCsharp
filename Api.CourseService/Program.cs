@@ -1,4 +1,6 @@
 
+using Api.CourseService.DI;
+
 namespace Api.CourseService
 {
     public class Program
@@ -8,6 +10,7 @@ namespace Api.CourseService
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            DependencyRegistry.RegisterDependencyInjection(builder.Services, builder.Configuration);
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -26,7 +29,6 @@ namespace Api.CourseService
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.CourseService.Domain
+namespace Aplication.Repositories
 {
-    internal class Student
+    public interface IEnrollmentDataPublisher
     {
+        void PublishEnrollment();
     }
 }
