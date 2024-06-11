@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Database
+namespace Infrastructure.Persistence.Database
 {
     public class PostgresDbContext : DbContext
     {

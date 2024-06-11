@@ -1,5 +1,5 @@
-﻿using Aplication.Repositories;
-using Infrastructure.Database;
+﻿using Aplication.Interfaces.Repositories;
+using Infrastructure.Persistence.Database;
 using Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 

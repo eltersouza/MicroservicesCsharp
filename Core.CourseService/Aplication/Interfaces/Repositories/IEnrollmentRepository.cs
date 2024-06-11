@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aplication.Repositories
+namespace Aplication.Interfaces.Repositories
 {
-    public interface IEnrollmentDataPublisher
+    public interface IEnrollmentRepository
     {
-        void PublishEnrollment();
     }
 }
