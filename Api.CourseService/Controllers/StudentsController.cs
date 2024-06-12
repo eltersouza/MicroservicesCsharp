@@ -23,5 +23,26 @@ namespace Api.CourseService.Controllers
 
             return Ok(student);
         }
+        
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var students = await _studentRepository.GetAllAsync();
+            if(!students.Any())
+                return NotFound();
+
+            return Ok(students);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> create([FromBody] Student student)
+        {
+            if (string.IsNullOrEmpty(student.Name))
+                return BadRequest();
+            
+            student = await _studentRepository.CreateAsync(student);
+
+            return Ok(student);
+        }
     }
 }

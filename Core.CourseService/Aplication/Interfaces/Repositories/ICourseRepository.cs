@@ -1,11 +1,11 @@
-﻿using Domain.Entities;
+﻿using Aplication.DTOs;
 
 namespace Aplication.Interfaces.Repositories
 {
     public interface ICourseRepository
     {
-        public Task<Course> Create(Course course);
-        public Task<Course> GetById(int id);
-        public Task<IEnumerable<Course>> GetAll();
+        public Task<Course> CreateAsync(Course course);
+        public Task<Course?> GetByIdAsync(int id);
+        public Task<IEnumerable<Course>> GetAllAsync();
     }
 }

@@ -13,14 +13,26 @@ namespace Core.CourseService.Infrastructure.Persistence.Repositories
             _dbContext = dbContext;
         }
 
-        public Task<Student> Create(Student student)
+        public async Task<Student> CreateAsync(Student student)
         {
-            throw new NotImplementedException();
+            Domain.Entities.Student studentEntity = new Domain.Entities.Student()
+            {
+                Email = student.Email,
+                Name = student.Name
+            };
+
+            _dbContext.Students.Add(studentEntity);
+
+            await _dbContext.SaveChangesAsync();
+            
+            return Student.FromEntity(studentEntity);
         }
 
-        public Task<IEnumerable<Student>> GetAll()
+        public async Task<IEnumerable<Student>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var students = await _dbContext.Students.ToListAsync();
+            
+            return students.Select((student, i) => Student.FromEntity(student));
         }
 
         public async Task<Student?> GetByIdAsync(int id)
