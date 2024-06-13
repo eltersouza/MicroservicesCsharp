@@ -1,7 +1,9 @@
-﻿namespace Aplication.Interfaces.Messaging
+﻿using Aplication.DTOs;
+
+namespace Aplication.Interfaces.Messaging
 {
     public interface IEnrollmentDataPublisher
     {
-        void PublishEnrollment();
+        Task<bool> PublishAsync(Enrollment enrollment);
     }
 }

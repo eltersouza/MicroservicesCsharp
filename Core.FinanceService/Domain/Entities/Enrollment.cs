@@ -13,7 +13,7 @@ namespace Domain.Entities
         public int CourseId { get; set; }
         public DateTime EnrolledAt { get; set; }
 
-        public Customers Student { get; set; }
+        public Student Student { get; set; }
         public Course Course { get; set; }
     }
 }

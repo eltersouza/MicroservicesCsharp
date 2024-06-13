@@ -7,6 +7,8 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <RootNamespace>Test.FinanceService</RootNamespace>
+    <AssemblyName>Test.FinanceService</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

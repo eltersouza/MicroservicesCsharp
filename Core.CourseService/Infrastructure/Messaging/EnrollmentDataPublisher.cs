@@ -1,36 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Aplication.Configurations;
+using Aplication.DTOs;
+using Aplication.Interfaces.Messaging;
+using Confluent.Kafka;
+using FluentValidation;
+using FluentValidation.Results;
+using Microsoft.Extensions.Options;
 
 namespace Core.CourseService.Infrastructure.Messaging
 {
-    public class EnrollmentDataPublisher
+    public class EnrollmentDataPublisher : IEnrollmentDataPublisher
     {
-        //public bool Publish(UserData userData, KafkaConfiguration kafkaConfiguration)
-        //{
-        //    bool result = false;
+        private readonly IValidator<Enrollment> _validator;
+        private readonly KafkaConfiguration _kafkaConfiguration;
 
-        //    if (userData == null || string.IsNullOrEmpty(userData.IpAddress))
-        //        return result;
+        public EnrollmentDataPublisher(IValidator<Enrollment> validator, IOptions<KafkaConfiguration> options)
+        {
+            _validator = validator;
+            _kafkaConfiguration = options.Value;
+        }
 
-        //    var config = new ProducerConfig
-        //    {
-        //        BootstrapServers = kafkaConfiguration.BootstrapServers
-        //    };
+        public async Task<bool> PublishAsync(Enrollment enrollment)
+        {
+            bool result = false;
 
-        //    using var producer = new ProducerBuilder<Null, string>(config).Build();
+            ValidationResult validationResult = await _validator.ValidateAsync(enrollment);
+            if (!validationResult.IsValid)
+                return result;
 
-        //    var message = new Message<Null, string> { Value = userData.ToString() };
+            var config = new ProducerConfig
+            {
+                BootstrapServers = _kafkaConfiguration.BootstrapServers
+            };
 
-        //    producer.Produce(kafkaConfiguration.Topic, message, deliveryReport => {
-        //        Console.WriteLine(deliveryReport.Message.Value);
-        //        result = !deliveryReport.Error.IsError;
-        //    });
-        //    producer.Flush();
+            using var producer = new ProducerBuilder<Null, string>(config).Build();
 
-        //    return result;
-        //}
+            var message = new Message<Null, string> { Value = enrollment.ToString()! };
+
+            producer.Produce(_kafkaConfiguration.Topic, message, deliveryReport =>
+            {
+                Console.WriteLine(deliveryReport.Message.Value);
+                result = !deliveryReport.Error.IsError;
+            });
+            producer.Flush();
+
+            return result;
+        }
     }
 }

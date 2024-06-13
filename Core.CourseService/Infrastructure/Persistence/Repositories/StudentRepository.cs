@@ -37,12 +37,9 @@ namespace Core.CourseService.Infrastructure.Persistence.Repositories
 
         public async Task<Student?> GetByIdAsync(int id)
         {
-            var student = await _dbContext.Students.SingleOrDefaultAsync(x => x.Id == id);
-            if (student == null)
-                return null;
+            var studentEntity = await _dbContext.Students.SingleOrDefaultAsync(x => x.Id == id);
 
-            var studentDto = Student.FromEntity(student);
-            return studentDto;
+            return studentEntity != null ? Student.FromEntity(studentEntity) : null;
         }
     }
 }

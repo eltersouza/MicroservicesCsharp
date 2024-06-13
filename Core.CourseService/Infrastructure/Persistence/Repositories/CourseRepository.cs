@@ -32,10 +32,8 @@ namespace Infrastructure.Persistence.Repositories
         public async Task<Course?> GetByIdAsync(int id)
         {
             var courseEntity = await _dbContext.Courses.SingleOrDefaultAsync(x => x.Id == id);
-            if (courseEntity == null)
-                return null;
             
-            return Course.FromEntity(courseEntity);
+            return courseEntity != null ? Course.FromEntity(courseEntity) : null;
         }
 
         public async Task<IEnumerable<Course>> GetAllAsync()

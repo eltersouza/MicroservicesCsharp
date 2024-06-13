@@ -11,7 +11,7 @@ namespace Infrastructure.Persistence.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(@"UserID=postgres;Password=docker;Host=localhost;Port=5432;Database=course;Pooling=true;");
+            optionsBuilder.UseNpgsql(@"UserID=postgres;Password=docker;Host=localhost;Port=5432;Database=courses_csharp;Pooling=true;");
         }
     }
 }

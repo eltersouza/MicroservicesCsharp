@@ -14,10 +14,11 @@ namespace Api.CourseService.Controllers
             _studentRepository = studentRepository;
         }
 
-        [HttpGet("/{id}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet]
+        [Route("/{studentId}")]
+        public async Task<IActionResult> GetStudentByIdAsync(int studentId)
         {
-            var student = await _studentRepository.GetByIdAsync(id);
+            var student = await _studentRepository.GetByIdAsync(studentId);
             if(student == null)
                 return NotFound();
 
@@ -25,24 +26,22 @@ namespace Api.CourseService.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllStudentsAsync()
         {
             var students = await _studentRepository.GetAllAsync();
-            if(!students.Any())
-                return NotFound();
 
             return Ok(students);
         }
 
         [HttpPost]
-        public async Task<IActionResult> create([FromBody] Student student)
+        public async Task<IActionResult> CreateStudentAsync([FromBody] Student student)
         {
-            if (string.IsNullOrEmpty(student.Name))
-                return BadRequest();
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
             
             student = await _studentRepository.CreateAsync(student);
 
-            return Ok(student);
+            return StatusCode(StatusCodes.Status201Created, student);
         }
     }
 }
