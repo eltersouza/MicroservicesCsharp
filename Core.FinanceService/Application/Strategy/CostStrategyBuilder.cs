@@ -32,8 +32,11 @@ namespace Core.FinanceService.Application.Strategy
             }
         }
 
-        public string Execute(StrategyEnum strategy)
+        public string Execute()
         {
+            if (Strategy == null)
+                return null;
+            
             return Strategy.Execute();
         }
     }

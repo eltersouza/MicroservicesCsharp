@@ -6,5 +6,6 @@ namespace Core.FinanceService.Application.Interfaces.UseCases
     {
         Task<Enrollment> EnrollmentAsync(Enrollment enrollment);
         Task<Enrollment> CreateResourcesAsync(Enrollment enrollment);
+        string GetCosts(Enrollment enrollment);
     }
 }

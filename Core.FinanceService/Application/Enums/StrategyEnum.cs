@@ -3,6 +3,7 @@
     public enum StrategyEnum
     {
         Real,
-        Dolar
+        Dolar,
+        Euro
     }
 }

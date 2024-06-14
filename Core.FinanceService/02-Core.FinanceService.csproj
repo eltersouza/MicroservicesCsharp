@@ -27,4 +27,16 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Infrastructure\Persistence\Service\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Infrastructure\Persistence\Service\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Infrastructure\Persistence\Service\**" />
+  </ItemGroup>
+
 </Project>

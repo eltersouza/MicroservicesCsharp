@@ -6,7 +6,7 @@ namespace Core.FinanceService.Application.Strategy.Concretes
     {
         public string Execute()
         {
-            throw new NotImplementedException();
+            return "$32.00 USD";
         }
     }
 }
