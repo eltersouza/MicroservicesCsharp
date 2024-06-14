@@ -17,7 +17,7 @@ namespace Core.FinanceService.Application.UseCases
         }
         public async Task<Student> CreateAsync(Enrollment enroll)
         {
-            var studentValidation = _studentValidator.Validate(enroll.Student);
+            var studentValidation = _studentValidator.Validate(enroll.Student!);
             if (!studentValidation.IsValid)
                 return null;
 

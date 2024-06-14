@@ -35,6 +35,8 @@ namespace Worker.FinanceService.DI
 
             //UseCases
             serviceBuilder.AddTransient<IEnrollStudentToCourse, EnrollStudentToCourse>();
+            serviceBuilder.AddTransient<ICreateStudent, CreateStudent>();
+            serviceBuilder.AddTransient<ICreateCourse, CreateCourse>();
         }
     }
 }

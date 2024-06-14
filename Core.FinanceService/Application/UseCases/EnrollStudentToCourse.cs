@@ -7,30 +7,31 @@ namespace Core.FinanceService.Application.UseCases
     public class EnrollStudentToCourse : IEnrollStudentToCourse
     {
         public readonly IEnrollmentRepository _enrollmentRepository;
-        public readonly ICourseRepository _courseRepository;
-        public readonly IStudentRepository _studentRepository;
+        public readonly ICreateCourse _createCourse;
+        public readonly ICreateStudent _createStudent;
 
-        public EnrollStudentToCourse(IEnrollmentRepository enrollmentRepository, ICourseRepository courseRepository, IStudentRepository studentRepository)
+        public EnrollStudentToCourse(IEnrollmentRepository enrollmentRepository, ICreateCourse createCourse, ICreateStudent createStudent)
         {
             _enrollmentRepository = enrollmentRepository;
-            _courseRepository = courseRepository;
-            _studentRepository = studentRepository;
+            _createCourse = createCourse;
+            _createStudent = createStudent;
         }
 
         public async Task<Enrollment> EnrollmentAsync(Enrollment enrollment)
         {
             enrollment.EnrolledAt = DateTime.UtcNow;
-
-            var course = await _courseRepository.CreateAsync(enrollment.Course!);
-            var student = await _studentRepository.CreateAsync(enrollment.Student!);
-
-            enrollment.StudentId = student.Id;
-            enrollment.Student = student;
-
-            enrollment.CourseId = course.Id;
-            enrollment.Course = course;
-
             enrollment = await _enrollmentRepository.CreateAsync(enrollment);
+
+            return enrollment;
+        }
+
+        public async Task<Enrollment> CreateResourcesAsync(Enrollment enrollment)
+        {
+            enrollment.Course = await _createCourse.CreateAsync(enrollment);
+            enrollment.CourseId = enrollment.Course.Id;
+                
+            enrollment.Student = await _createStudent.CreateAsync(enrollment);
+            enrollment.StudentId = enrollment.Student.Id;
 
             return enrollment;
         }

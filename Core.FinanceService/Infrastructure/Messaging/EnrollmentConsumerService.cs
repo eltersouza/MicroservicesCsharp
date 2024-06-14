@@ -48,7 +48,10 @@ namespace Core.FinanceService.Infrastructure.Messaging
                         Enrollment? enrollment = JsonConvert.DeserializeObject<Enrollment>(cr.Message.Value);
 
                         if (enrollment != null)
+                        {
+                            enrollment = await _enrollStudentToCourse.CreateResourcesAsync(enrollment);
                             await _enrollStudentToCourse.EnrollmentAsync(enrollment);
+                        }
                     }
                 }
                 catch (OperationCanceledException)
